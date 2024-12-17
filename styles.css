@@ -8,7 +8,7 @@
 /* spacer */
 /* typography */
 .text-preset-1 {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 125%;
   letter-spacing: -1px;
@@ -112,7 +112,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* general */
@@ -139,6 +139,10 @@ body {
   text-decoration: underline;
   color: hsl(200, 24%, 40%);
   padding: 0;
+  cursor: pointer;
+}
+.calc__clear:hover, .calc__clear:focus {
+  color: hsl(202, 55%, 16%);
 }
 
 .calc__form {
@@ -158,17 +162,29 @@ body {
 }
 
 .input-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
-  border: 1px solid hsl(200, 24%, 40%);
+  border: 1.5px solid hsl(200, 24%, 40%);
   border-radius: 0.25rem;
   margin-top: 0.5rem;
 }
 
 .input-wrapper:focus-within {
-  outline: 2px solid #4f46e5;
-  border-color: #4f46e5;
+  outline: 1.5px solid hsl(61, 70%, 52%);
+  border-color: hsl(61, 70%, 52%);
   outline-offset: -2px;
+}
+
+.input-wrapper:has(.error) {
+  border-color: hsl(4, 69%, 50%) !important;
+  margin-bottom: 1rem;
+}
+
+.input-wrapper:has(.error) .prefix,
+.input-wrapper:has(.error) .suffix {
+  background-color: hsl(4, 69%, 50%);
+  color: hsl(0, 0%, 100%);
 }
 
 .prefix,
@@ -183,12 +199,27 @@ body {
   padding: 0.75rem 1rem;
 }
 
+.input-wrapper:focus-within .suffix,
+.input-wrapper:focus-within .prefix {
+  background-color: hsl(61, 70%, 52%);
+  color: hsl(202, 55%, 16%);
+}
+
 .prefix {
   border-radius: 0.25rem 0 0 0.25rem;
 }
 
 .suffix {
   border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.just-validate-error-label {
+  position: absolute;
+  top: 2.9rem;
+  left: 0;
+  color: hsl(4, 69%, 50%) !important;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
 }
 
 .input-field {
@@ -209,10 +240,17 @@ body {
   border-color: hsl(202, 55%, 16%);
 }
 
+.radio-group {
+  position: relative;
+}
+.radio-group .just-validate-error-label {
+  top: 8.7rem;
+}
+
 .radio-option {
   display: block;
   cursor: pointer;
-  border: 1px solid hsl(200, 24%, 40%);
+  border: 1.5px solid hsl(200, 24%, 40%);
   border-radius: 0.25rem;
   padding: 0.75rem 1rem;
   margin-top: 0.5rem;
@@ -222,10 +260,19 @@ body {
   color: hsl(202, 55%, 16%);
   font-weight: 700;
 }
+.radio-option:hover, .radio-option:focus-visible {
+  border: 1.5px solid hsl(61, 70%, 52%);
+}
 
 input[type=radio] {
   transform: scale(1.5);
   margin-right: 1rem;
+}
+
+.radio-option:has(input[type=radio]:checked) {
+  background-color: #f0f1b1;
+  border-color: hsl(61, 70%, 52%);
+  accent-color: hsl(61, 70%, 52%);
 }
 
 .calc__results {
@@ -248,6 +295,9 @@ input[type=radio] {
   cursor: pointer;
   margin: 1.5rem 0;
 }
+.calc__submit:hover, .calc__submit:focus-visible {
+  background-color: #f0f1b1;
+}
 
 .calc__results-empty {
   display: grid;
@@ -258,7 +308,35 @@ input[type=radio] {
   color: hsl(203, 41%, 72%);
 }
 
+.calc__results-result {
+  color: hsl(203, 41%, 72%);
+}
+.calc__results-result h2 {
+  color: hsl(0, 0%, 100%);
+}
+.calc__results-result .monthly-payments {
+  color: hsl(61, 70%, 52%);
+  border-bottom: 1px solid hsl(200, 24%, 40%);
+  padding-bottom: 0.5rem;
+  margin-top: 0;
+}
+.calc__results-result .total-pay {
+  color: hsl(0, 0%, 100%);
+}
+
+.calc__results-group {
+  margin-top: 1.5rem;
+  background-color: #0d202b;
+  padding: 1rem;
+  --flow-space: 1rem;
+  border-radius: 0.5rem;
+  border-top: 5px solid hsl(61, 70%, 52%);
+}
+
 @media (min-width: 40rem) {
+  .text-preset-1 {
+    font-size: 3.5rem;
+  }
   .calc {
     max-width: 43rem;
     margin-top: 2rem;
@@ -267,6 +345,7 @@ input[type=radio] {
   }
   .calc__results {
     border-radius: 0 0 1.5rem 1.5rem;
+    padding: 1.5rem;
   }
   .calc__form-group {
     width: 80vw;
@@ -318,7 +397,16 @@ input[type=radio] {
   }
   .calc__results {
     border-radius: 0 1.5rem 1.5rem 5rem;
-    display: grid;
-    place-items: center;
+    padding-top: 2.5rem;
+  }
+  .calc__results-empty {
+    padding-top: 5rem;
+  }
+  .calc__results-group {
+    margin-top: 2.5rem;
+    --flow-space: 2rem;
+  }
+  .calc__results-result .monthly-payments {
+    padding-bottom: 1.5rem;
   }
 }/*# sourceMappingURL=styles.css.map */

@@ -8,7 +8,7 @@
 
 /* colors */
 
-$lime: hsl(61, 70%, 52%);
+$clr-accent: hsl(61, 70%, 52%);
 $slate-100: hsl(202, 86%, 94%);
 $slate-300: hsl(203, 41%, 72%);
 $slate-500: hsl(200, 26%, 54%);
@@ -41,7 +41,7 @@ $fw-bold: 700;
 $fw-regular: 500;
 
 .text-preset-1 {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   font-weight: $fw-bold;
   line-height: 125%;
   letter-spacing: -1px;
@@ -147,7 +147,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* general */
@@ -171,6 +171,11 @@ body {
   text-decoration: underline;
   color: $slate-700;
   padding: 0;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    color: $slate-900;
+  }
 }
 
 .calc__form {
@@ -190,17 +195,29 @@ body {
 }
 
 .input-wrapper {
+  position: relative;
+
   display: flex;
   align-items: center;
-  border: 1px solid $slate-700;
+  border: 1.5px solid $slate-700;
   border-radius: $br-sm;
   margin-top: $spacer-100;
 }
 
 .input-wrapper:focus-within {
-  outline: 2px solid #4f46e5;
-  border-color: #4f46e5;
+  outline: 1.5px solid $clr-accent;
+  border-color: $clr-accent;
   outline-offset: -2px;
+}
+
+.input-wrapper:has(.error) {
+  border-color: $red !important;
+  margin-bottom: $spacer-200;
+}
+.input-wrapper:has(.error) .prefix,
+.input-wrapper:has(.error) .suffix {
+  background-color: $red;
+  color: $white;
 }
 
 .prefix,
@@ -213,11 +230,26 @@ body {
   padding: $spacer-150 $spacer-200;
 }
 
+.input-wrapper:focus-within .suffix,
+.input-wrapper:focus-within .prefix {
+  background-color: $clr-accent;
+  color: $slate-900;
+}
+
 .prefix {
   border-radius: $br-sm 0 0 $br-sm;
 }
 .suffix {
   border-radius: 0 $br-sm $br-sm 0;
+}
+
+.just-validate-error-label {
+  position: absolute;
+  top: 2.9rem;
+  left: 0;
+  color: $red !important;
+  font-size: 0.875rem;
+  margin-bottom: $spacer-200;
 }
 
 .input-field {
@@ -238,10 +270,17 @@ body {
   border-color: $slate-900;
 }
 
+.radio-group {
+  position: relative;
+  & .just-validate-error-label {
+    top: 8.7rem;
+  }
+}
+
 .radio-option {
   display: block;
   cursor: pointer;
-  border: 1px solid $slate-700;
+  border: 1.5px solid $slate-700;
   border-radius: $br-sm;
   padding: $spacer-150 $spacer-200;
   margin-top: $spacer-100;
@@ -250,10 +289,19 @@ body {
     color: $slate-900;
     font-weight: $fw-bold;
   }
+  &:hover,
+  &:focus-visible {
+    border: 1.5px solid $clr-accent;
+  }
 }
 input[type="radio"] {
   transform: scale(1.5);
   margin-right: $spacer-200;
+}
+.radio-option:has(input[type="radio"]:checked) {
+  background-color: lighten($clr-accent, 30%);
+  border-color: $clr-accent;
+  accent-color: $clr-accent;
 }
 .calc__results {
   background: $slate-900;
@@ -268,12 +316,16 @@ input[type="radio"] {
   gap: $spacer-200;
   width: 100%;
   font-family: inherit;
-  background: $lime;
+  background: $clr-accent;
   border: none;
   border-radius: $br-lg;
   padding: $spacer-200 $spacer-300;
   cursor: pointer;
   margin: $spacer-300 0;
+  &:hover,
+  &:focus-visible {
+    background-color: lighten($clr-accent, 30%);
+  }
 }
 
 .calc__results-empty {
@@ -285,7 +337,34 @@ input[type="radio"] {
   }
 }
 
+.calc__results-result {
+  color: $slate-300;
+  & h2 {
+    color: $white;
+  }
+  & .monthly-payments {
+    color: $clr-accent;
+    border-bottom: 1px solid $slate-700;
+    padding-bottom: $spacer-100;
+    margin-top: 0;
+  }
+  & .total-pay {
+    color: $white;
+  }
+}
+.calc__results-group {
+  margin-top: $spacer-300;
+  background-color: darken($slate-900, 5%);
+  padding: $spacer-200;
+  --flow-space: 1rem;
+  border-radius: $br;
+  border-top: 5px solid $clr-accent;
+}
+
 @media (min-width: 40rem) {
+  .text-preset-1 {
+    font-size: 3.5rem;
+  }
   .calc {
     max-width: 43rem;
     margin-top: $spacer-400;
@@ -294,6 +373,7 @@ input[type="radio"] {
   }
   .calc__results {
     border-radius: 0 0 $br-lg $br-lg;
+    padding: $spacer-300;
   }
   .calc__form-group {
     width: 80vw;
@@ -348,7 +428,17 @@ input[type="radio"] {
   }
   .calc__results {
     border-radius: 0 $br-lg $br-lg 5rem;
-    display: grid;
-    place-items: center;
+    padding-top: $spacer-500;
+  }
+
+  .calc__results-empty {
+    padding-top: $spacer-1000;
+  }
+  .calc__results-group {
+    margin-top: $spacer-500;
+    --flow-space: 2rem;
+  }
+  .calc__results-result .monthly-payments {
+    padding-bottom: $spacer-300;
   }
 }

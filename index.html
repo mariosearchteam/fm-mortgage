@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
+  <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
   <title>Frontend Mentor | Mortgage repayment calculator</title>
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="calc__form-group">
+                <div class="calc__form-group radio-group">
                     <label class="text-preset-4">Mortgage Type</label>
                     <label class="radio-option text-preset-3" for="repayment">
                         <input type="radio" id="repayment" name="mortgage-type" value="repayment">
@@ -64,21 +64,20 @@
                 <h2 class="text-preset-2">Results shown here</h2>
                 <p class="text-preset-4">Complete the form and click “calculate repayments” to see what your monthly repayments would be.</p>
             </div>
-            <div class="calc__results-result hidden container ">
-                <h2>Your results</h2>
-                <p>Your results are shown below based on the information you provided. To adjust the results, edit the form and click “calculate repayments” again.</p>
-                <div class="calc__results-group">
-                    <h3>Your monthly repayments</h3>
-                    <p id="monthly-payments">£0.00</p>
-                </div>
-                <div class="calc__results-group">
-                    <h3>Total you'll repay over the term</h3>
-                    <p id="total-pay">£0.00</p>
+            <div class="calc__results-result hidden container flow-content">
+                <h2 class="text-preset-2">Your results</h2>
+                <p class="text-preset-4">Your results are shown below based on the information you provided. To adjust the results, edit the form and click “calculate repayments” again.</p>
+                <div class="calc__results-group flow-content">
+                    <h3 class="text-preset-4">Your monthly repayments</h3>
+                    <p class="text-preset-1 monthly-payments" id="monthly-payments">£0.00</p>
+             
+                    <h3 class="text-preset-4">Total you'll repay over the term</h3>
+                    <p class="text-preset-2 total-pay" id="total-pay">£0.00</p>
                 </div>
             </div>
         </section>
     </article>
 </main>  
-    <script src="scripts.js" defer></script>
+    <script src="scripts.js" type="module" defer></script>
 </body>
 </html>
